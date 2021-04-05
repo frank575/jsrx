@@ -2,3 +2,14 @@
   background: #1b1b1b;
   color: rgba(255,255,255,.8);
 }
+
+#drag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 0, .5);
+  width: 80px;
+  height: 80px;
+  cursor: move;
+  z-index: 1;
+}

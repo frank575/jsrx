@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "vite": "^2.1.5"
+  },
+  "dependencies": {
+    "rxjs": "^6.6.7"
   }
 }
