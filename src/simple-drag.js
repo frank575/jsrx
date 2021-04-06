@@ -18,7 +18,6 @@ mousedown$.pipe(
     x: move.clientX - down.offsetX,
     y: move.clientY - down.offsetY,
   })),
-  // map(e => ({x: e.clientX, y: e.clientY})),
 ).subscribe(pos => {
   dragDom.style.left = pos.x + 'px'
   dragDom.style.top = pos.y + 'px'

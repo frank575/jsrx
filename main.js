@@ -1,6 +1,6 @@
 import './style.css'
 // import { innerApp } from './src/innerApp'
-// import { simpleDrag } from './src/simple-drag'
+import { simpleDrag } from './src/simple-drag'
 // import { simpleCounter } from './src/simple-counter'
 // import { fetchButton } from './src/fetch-button'
-import { simpleAutoComplete } from './src/simple-auto-complete'
+// import { simpleAutoComplete } from './src/simple-auto-complete'
