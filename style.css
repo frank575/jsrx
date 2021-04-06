@@ -3,7 +3,7 @@ a, div, span, body {
   color: rgba(255,255,255,.8);
 }
 
-#drag {
+#drag, .drag {
   position: absolute;
   left: 0;
   top: 0;
@@ -12,4 +12,9 @@ a, div, span, body {
   height: 80px;
   cursor: move;
   z-index: 1;
+  transition: left 0.1s ease-out, top 0.1s ease-out;
+}
+#drag.small, .drag.small {
+  width: 40px;
+  height: 40px;
 }
