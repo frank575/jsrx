@@ -49,15 +49,19 @@ fromEvent(DCancel, 'click')
   .subscribe(showDEdit)
 
 fromEvent(DSubmit, 'click')
-  .pipe(
-    merge(inputNameEnter$)
-  )
+  .pipe(merge(inputNameEnter$))
   .subscribe(() => {
     DTaskName.innerText = DName.value
     showDEdit()
   })
 
 const keydown$ = fromEvent(document, 'keydown')
+
+keydown$.pipe(
+  map(ev => ev.key),
+  filter(key => key === 'Escape')
+).subscribe(showDEdit)
+
 keydown$
   .pipe(
     map(ev => ev.key),
