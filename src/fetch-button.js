@@ -1,18 +1,6 @@
 import { app } from './helper'
-import { defer, fromEvent } from 'rxjs'
-import {
-  combineLatest,
-  concatMap,
-  filter,
-  map,
-  mapTo,
-  merge,
-  startWith,
-  takeUntil,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators'
-import { concatAll } from 'rxjs/src/internal/operators/concatAll'
+import { fromEvent } from 'rxjs'
+import { concatMap, filter, tap } from 'rxjs/operators'
 
 const img = document.createElement('img')
 const fetchBtn = document.createElement('button')
