@@ -1,6 +1,6 @@
 import './style.css'
-import { behaviorsubjectClickNums } from './src/behaviorsubject-click-nums'
-// import { alphabetInvasion } from './src/alphabet-invasion'
+// import { behaviorsubjectClickNums } from './src/behaviorsubject-click-nums'
+import { alphabetInvasion } from './src/alphabet-invasion'
 // import { innerApp } from './src/innerApp'
 // import { simpleDrag } from './src/simple-drag'
 // import { delayDrag } from './src/delay-drag'
