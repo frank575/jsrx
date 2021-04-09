@@ -18,3 +18,25 @@ a, div, span, body {
   width: 40px;
   height: 40px;
 }
+.trello {
+  display: flex;
+  align-items: flex-start;
+}
+.trello .card-list {
+  background: rgba(255,255,255,.1);
+  height: 100vh;
+  overflow: auto;
+  margin: 0 12px;
+  padding: 12px;
+  border-radius: 8px;
+}
+.trello .card {
+  background: rgba(255,255,255,.2);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.trello .placeholder {
+  background: rgba(255,255,255,.4);
+}
