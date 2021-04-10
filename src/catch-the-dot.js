@@ -9,8 +9,8 @@ let gameState = {}
 const initialGameState = () => {
   gameState = {
     boardSize: 500,
-    ballSize: 50,
-    ballRgb: [255, 255, 255],
+    dotSize: 50,
+    dotRgb: [255, 255, 255],
     countdown: 5,
     score: 0,
   }
@@ -23,9 +23,9 @@ dot.style.cssText = `
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${gameState.ballSize}px;
-  height: ${gameState.ballSize}px;
-  background: rgba(${gameState.ballRgb.join(', ')}, .8);
+  width: ${gameState.dotSize}px;
+  height: ${gameState.dotSize}px;
+  background: rgba(${gameState.dotRgb.join(', ')}, .8);
   position: absolute;
   left: 60px;
   top: 60px;
@@ -69,8 +69,8 @@ app.append(board)
 
 const generatePos = () => {
   const r = Math.floor(Math.random() * gameState.boardSize)
-  return r + gameState.ballSize > gameState.boardSize ?
-    gameState.boardSize - gameState.ballSize :
+  return r + gameState.dotSize > gameState.boardSize ?
+    gameState.boardSize - gameState.dotSize :
     r
 }
 
@@ -78,13 +78,13 @@ const randomColor = () => Math.floor(Math.random() * 100) + 155
 
 const moveDot = () => {
   const x = generatePos(), y = generatePos()
-  if (gameState.ballSize > 25) {
-    gameState.ballSize -= 2.5
+  if (gameState.dotSize > 25) {
+    gameState.dotSize -= 2.5
   }
-  gameState.ballRgb = [randomColor(), randomColor(), randomColor()]
-  dot.style.width = `${gameState.ballSize}px`
-  dot.style.height = `${gameState.ballSize}px`
-  dot.style.background = `rgba(${gameState.ballRgb.join(', ')}, .8)`
+  gameState.dotRgb = [randomColor(), randomColor(), randomColor()]
+  dot.style.width = `${gameState.dotSize}px`
+  dot.style.height = `${gameState.dotSize}px`
+  dot.style.background = `rgba(${gameState.dotRgb.join(', ')}, .8)`
   dot.style.left = `${x}px`
   dot.style.top = `${y}px`
 }
