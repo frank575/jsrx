@@ -65,8 +65,8 @@
 //
 
 import { app } from './helper'
-import { BehaviorSubject, combineLatest, fromEvent, interval, of, timer } from 'rxjs'
-import { filter, pluck, scan, startWith, tap } from 'rxjs/operators'
+import { BehaviorSubject, combineLatest, fromEvent, interval } from 'rxjs'
+import { pluck, scan, startWith, takeWhile } from 'rxjs/operators'
 import { switchMap } from 'rxjs/src/internal/operators/switchMap'
 
 // https://www.learnrxjs.io/learn-rxjs/recipes/alphabet-invasion-game
@@ -76,6 +76,7 @@ app.innerHTML += `
 `
 
 const gameWidth = 30
+const levelRange = 20
 const lineHeight = 15
 
 const DGame = document.getElementById('game')
@@ -83,13 +84,10 @@ const DGame = document.getElementById('game')
 const renderGame = state => {
   DGame.innerHTML = `Score: ${state.score}, Level: ${state.level}<br />`
   state.letters.forEach((el, i) => {
-    const { yPos, letter } = state.letters[state.letters.length - i - 1]
+    const { yPos, letter } = state.letters[i]
     DGame.innerHTML += `${'&nbsp;'.repeat(yPos)}${letter}${'&nbsp;'.repeat(gameWidth - yPos)}<br />`
   })
-  for (let i = 0; i < lineHeight - state.letters.length; i++) {
-    DGame.innerHTML += '<br />'
-  }
-  DGame.innerHTML += `${'-'.repeat(gameWidth)}`
+  DGame.innerHTML += `${'<br />'.repeat(lineHeight - state.letters.length)}${'-'.repeat(gameWidth)}`
 }
 
 const randomLetter = () =>
@@ -97,31 +95,49 @@ const randomLetter = () =>
     Math.random() * ('z'.charCodeAt(0) - 'a'.charCodeAt(0)) + 'a'.charCodeAt(0)
   )
 
-// const keys$ =
+const renderGameOver = () => {
+  DGame.innerHTML += `<br/> GameOver! <button id="restart">重新開始</button>`
+  document.getElementById('restart').onclick = ev => {
+    startGame()
+    ev.target.style.display = 'none'
+  }
+}
 
 const levelSubject = new BehaviorSubject(1)
 
 const letters$ = levelSubject.pipe(
-  switchMap(level => interval(1000 - (level - 1) * 100).pipe(
+  switchMap(level => interval(1000 - level * 200).pipe(
     scan(letters => [{ yPos: Math.floor(Math.random() * gameWidth), letter: randomLetter() }, ...letters], [])
   ))
 )
 
-const keys$ = fromEvent(document, 'keyup').pipe(
+const keys$ = fromEvent(document, 'keydown').pipe(
   startWith({ key: '' }),
   pluck('key'),
 )
 
-const score$ = of(0)
-
-const games$ = combineLatest(keys$, letters$).pipe(
-  scan((p, [key, letters]) => {
-    const firstLetter = letters[0]
-    if (key === firstLetter.letter) {
-      letters.shift()
+const game$ = combineLatest(keys$, letters$).pipe(
+  scan((state, [key, letters]) => {
+    const lastLetter = letters[letters.length - 1]
+    let { level, score } = state
+    if (key === lastLetter.letter) {
+      letters.pop()
+      if (++score > 0 && score % levelRange === 0) {
+        letters.length = 0
+        levelSubject.next(++level)
+      }
     }
-    return { score: 0, level: 1, letters }
-  }, { score: 0, level: 1, letters: [] })
-).subscribe(renderGame)
+    return { score, level, letters }
+  }, { score: 0, level: 1, letters: [] }),
+  takeWhile(({letters}) => letters.length < lineHeight + 1)
+)
+
+const startGame = () => game$.subscribe(
+  renderGame,
+  () => {},
+  renderGameOver
+)
+
+startGame()
 
 export const alphabetInvasion = null
