@@ -1,6 +1,7 @@
 import './style.css'
+import { catchTheDot } from './src/catch-the-dot'
 // import { behaviorsubjectClickNums } from './src/behaviorsubject-click-nums'
-import { alphabetInvasion } from './src/alphabet-invasion'
+// import { alphabetInvasion } from './src/alphabet-invasion'
 // import { innerApp } from './src/innerApp'
 // import { simpleDrag } from './src/simple-drag'
 // import { delayDrag } from './src/delay-drag'
