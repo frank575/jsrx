@@ -1,4 +1,5 @@
 import './style.css'
+import { formBasic } from './src/form-basic'
 import { catchTheDots } from './src/catch-the-dots'
 // import { catchTheDot } from './src/catch-the-dot'
 // import { behaviorsubjectClickNums } from './src/behaviorsubject-click-nums'
